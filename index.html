@@ -43,7 +43,7 @@
 	x,y,r,g,b,
 	xGo,yGo,
 	counter=1;
-	lot=1000; 
+	lot=100; 
 
 		function randomR(End){
 			return Math.round(Math.random()*End);
@@ -78,6 +78,7 @@
 					 (yBe>pointY-20)&&
 					 (yBe<pointY+20))) window.requestAnimationFrame(animGo)
 					else namber.innerHTML = --counter;
+          if (!counter) location.reload();
      //let  xGo, yGo;
 
      const step=6,
@@ -95,13 +96,7 @@
  }
  animGo();
 } 
-
-for(let i=1;i; i--){
 	anim();
-}  
-
-
-
 </script>
 </body>
 </html> 
