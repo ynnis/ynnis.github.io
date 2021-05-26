@@ -50,10 +50,12 @@
 	h = idCanvas.height = window.innerHeight,
 	ctx = idCanvas.getContext('2d'),
 	x,y,r,g,b,
-	xGo,yGo,
+	xGo,yGo, getS=location.search.substring(1),
 	counter=1;
+	if (Number(getS)) lotId.value=getS;
 	lot=Number(lotId.value); 
-		butId.onclick = function (){ location.reload();}
+	console.log(location.search.substring(1));
+		butId.onclick = function (){ location.replace("?"+Number(lotId.value));}
 	
 
 		function randomR(End){
