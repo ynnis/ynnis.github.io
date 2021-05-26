@@ -10,9 +10,24 @@
 		#c {
 			opacity:.8;
 		}
-		#namber{
+		#namber {
 			top:50px;
 			left:50px;
+			position:absolute;
+			background-color: rgb(255, 255, 255, 0.6);
+			width: 100px;
+			height: 30px;
+			z-index: 999;
+			padding: 10px;
+			text-align: center;
+			font-family: tahoma;
+			font-size: 19pt;
+			border-radius: 10px;
+			border: 2px solid black;
+		}
+		#lotId {
+			top:50px;
+			left:250px;
 			position:absolute;
 			background-color: rgb(255, 255, 255, 0.6);
 			width: 100px;
@@ -35,6 +50,7 @@
 	<canvas id="idCanvas"></canvas>
 	<canvas id=bgt></canvas>
 	<div id="namber">000</div>
+	<div id="lotId">000</div>
 	<script>
 		
 	let w = idCanvas.width = window.innerWidth,
