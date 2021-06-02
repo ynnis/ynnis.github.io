@@ -10,32 +10,38 @@
 		#c {
 			opacity:.8;
 		}
-		#namber, #lotId, #butId, #butCheck {
+		#position{
 			top:50px;
 			left:50px;
 			position:absolute;
+			z-index: 999;
+		}
+
+		.panel * {
+
 			background-color: rgb(255, 255, 255, 0.6);
 			width: 100px;
-			height: 30px;
-			z-index: 999;
+			height: 30px;	
 			padding: 10px;
 			text-align: center;
 			font-family: tahoma;
 			font-size: 19pt;
 			border-radius: 10px;
 			border: 2px solid black;
+			float: left;
+			margin-left: 10px;
 		}
-		#lotId {
-			left:180px;
-		}
-		#butId{
-			left: 310px;
+		.panel button {
 			height: 55px;
 		}
+
 		#butCheck{
-			left: 420px;
-			height: 55px;
 			background-color: rgb(255, 255, 0, 0.6);
+		}
+		#positionGo{
+			width: 20px;
+			font-size: 10px;
+			padding: 0;
 		}
 		canvas {
 			position:absolute;
@@ -46,25 +52,46 @@
 <body>
 	<canvas id="idCanvas"></canvas>
 	<canvas id=bgt></canvas>
-	<div id="namber">000</div>
-	<input type="text" id="lotId" value="100">
-	<button type="submit" id="butCheck">On</button>
-	<button type="submit" id="butId">Start</button>
+	<div id="position" class="panel">
+		<div id="namber">000</div>
+		<input type="text" id="lotId" value="100">
+		<button type="submit" id="butId">Start</button>
+		<button type="submit" id="butCheck">On</button>
+		<button type="submit" id="positionGo">⇋</button>
+	</div>
 	<script>
 		
 		let w = idCanvas.width = window.innerWidth,
 		h = idCanvas.height = window.innerHeight,
 		ctx = idCanvas.getContext('2d'),
 		x,y,r,g,b,
+		sign =-1,
 		xGo,yGo, getS=location.search.substring(1),
 		counter=1;
-		
+		positionGo.onclick = function(){
+			const
+			length=540;
+			let 
+			time = 5,
+			step = 10,
+			finsh = length/step,
+
+			left = Number(getComputedStyle(position).left.slice(0,-2));
+			
+			function noneGo() {
+				position.style.left = (left+= step*sign) + "px";
+				if ( finsh > 0 && finsh < (length/step)*2 ) {
+					setTimeout(noneGo, time); finsh += sign
+				} else sign  *= -1;
+			}
+
+			setTimeout(noneGo, time);
+		}
 		if (Number(getS)) lotId.value=getS;
 		lot=Number(lotId.value); 
 		butId.onclick = function (){ location.replace("?"+Number(lotId.value));}
 		
 		butCheck.onclick = function (){
-
 			if (butCheck.innerHTML==="On"){
 				butCheck.style.backgroundColor = "rgb(255, 0, 0, 1)";
 				butCheck.innerHTML="Off";
@@ -79,6 +106,7 @@
 		function randomR(End){
 			return Math.round(Math.random()*End);
 		}
+		
 		function anim(){
 			if (--lot) {
 				window.requestAnimationFrame(anim);
@@ -105,28 +133,28 @@
 			function animGo(){
 
 				if(!((xBe>pointX-20)&&
-					  (xBe<pointX+20)&&
-					  (yBe>pointY-20)&&
-					  (yBe<pointY+20))) window.requestAnimationFrame(animGo)
+					(xBe<pointX+20)&&
+					(yBe>pointY-20)&&
+					(yBe<pointY+20))) window.requestAnimationFrame(animGo)
 					else namber.innerHTML = --counter;
 				if ((!counter)&&(butCheck.innerHTML==="On")) location.reload();
 
-     const step=6,
-     stepPoint=0.1;
+				const step=6,
+				stepPoint=0.1;
 
-     xPoint += (xBe<pointX) ? stepPoint: -stepPoint;
-     yPoint += (yBe<pointY) ? stepPoint: -stepPoint;
+				xPoint += (xBe<pointX) ? stepPoint: -stepPoint;
+				yPoint += (yBe<pointY) ? stepPoint: -stepPoint;
 
-     xGo += Math.random() * step - step/2;
-     yGo += Math.random() * step - step/2; 
-     ctx.strokeStyle = "rgb("+r+","+g+","+b+")";
-     xBe=Math.round(x+xGo+xPoint);
-     yBe=Math.round(y+yGo+yPoint);
-     ctx.strokeRect(xBe, yBe, 1, 1);
-  }
-  animGo();
-} 
-anim();
-</script>
+				xGo += Math.random() * step - step/2;
+				yGo += Math.random() * step - step/2; 
+				ctx.strokeStyle = "rgb("+r+","+g+","+b+")";
+				xBe=Math.round(x+xGo+xPoint);
+				yBe=Math.round(y+yGo+yPoint);
+				ctx.strokeRect(xBe, yBe, 1, 1);
+			}
+			animGo();
+		} 
+		anim();
+	</script>
 </body>
 </html> 
