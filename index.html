@@ -10,7 +10,7 @@
 		#c {
 			opacity:.8;
 		}
-		#namber, #lotId, #butId {
+		#namber, #lotId, #butId, #butCheck {
 			top:50px;
 			left:50px;
 			position:absolute;
@@ -32,6 +32,12 @@
 		  left: 310px;
 		  height: 55px;
 		}
+		#butCheck{
+		  left: 420px;
+		  height: 55px;
+		  background-color: rgb(255, 255, 0, 0.6);
+		}
+		}
 		canvas {
 			position:absolute;
 			top:0; left:0;
@@ -43,6 +49,7 @@
 	<canvas id=bgt></canvas>
 	<div id="namber">000</div>
 	<input type="text" id="lotId" value="100">
+	<button type="submit" id="butCheck">On</button>
 	<button type="submit" id="butId">Start</button>
 	<script>
 		
@@ -50,12 +57,21 @@
 	h = idCanvas.height = window.innerHeight,
 	ctx = idCanvas.getContext('2d'),
 	x,y,r,g,b,
-	xGo,yGo, getS=location.search.substring(1),
+	xGo,yGo,
 	counter=1;
-	if (Number(getS)) lotId.value=getS;
 	lot=Number(lotId.value); 
-	console.log(location.search.substring(1));
-		butId.onclick = function (){ location.replace("?"+Number(lotId.value));}
+		butId.onclick = function (){ location.reload();}
+		butCheck.onclick = function (){
+	
+		if (butCheck.innerHTML==="On"){
+		  butCheck.style.backgroundColor = "rgb(255, 0, 0, 1)";
+		  butCheck.innerHTML="Off";
+		  } 
+		  else{
+		    butCheck.style.backgroundColor = "rgb(255, 255, 0, 0.6)";
+		    butCheck.innerHTML="On";
+		  }
+		}
 	
 
 		function randomR(End){
@@ -91,7 +107,7 @@
 					 (yBe>pointY-20)&&
 					 (yBe<pointY+20))) window.requestAnimationFrame(animGo)
 					else namber.innerHTML = --counter;
-          if (!counter) location.reload();
+          if ((!counter)&&(butCheck.innerHTML==="On")) location.reload();
      //let  xGo, yGo;
 
      const step=6,
