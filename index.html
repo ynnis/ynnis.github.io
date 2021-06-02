@@ -29,14 +29,13 @@
 			left:180px;
 		}
 		#butId{
-		  left: 310px;
-		  height: 55px;
+			left: 310px;
+			height: 55px;
 		}
 		#butCheck{
-		  left: 420px;
-		  height: 55px;
-		  background-color: rgb(255, 255, 0, 0.6);
-		}
+			left: 420px;
+			height: 55px;
+			background-color: rgb(255, 255, 0, 0.6);
 		}
 		canvas {
 			position:absolute;
@@ -53,26 +52,29 @@
 	<button type="submit" id="butId">Start</button>
 	<script>
 		
-	let w = idCanvas.width = window.innerWidth,
-	h = idCanvas.height = window.innerHeight,
-	ctx = idCanvas.getContext('2d'),
-	x,y,r,g,b,
-	xGo,yGo,
-	counter=1;
-	lot=Number(lotId.value); 
-		butId.onclick = function (){ location.reload();}
+		let w = idCanvas.width = window.innerWidth,
+		h = idCanvas.height = window.innerHeight,
+		ctx = idCanvas.getContext('2d'),
+		x,y,r,g,b,
+		xGo,yGo, getS=location.search.substring(1),
+		counter=1;
+		
+		if (Number(getS)) lotId.value=getS;
+		lot=Number(lotId.value); 
+		butId.onclick = function (){ location.replace("?"+Number(lotId.value));}
+		
 		butCheck.onclick = function (){
-	
-		if (butCheck.innerHTML==="On"){
-		  butCheck.style.backgroundColor = "rgb(255, 0, 0, 1)";
-		  butCheck.innerHTML="Off";
-		  } 
-		  else{
-		    butCheck.style.backgroundColor = "rgb(255, 255, 0, 0.6)";
-		    butCheck.innerHTML="On";
-		  }
+
+			if (butCheck.innerHTML==="On"){
+				butCheck.style.backgroundColor = "rgb(255, 0, 0, 1)";
+				butCheck.innerHTML="Off";
+			} 
+			else{
+				butCheck.style.backgroundColor = "rgb(255, 255, 0, 0.6)";
+				butCheck.innerHTML="On";
+			}
 		}
-	
+
 
 		function randomR(End){
 			return Math.round(Math.random()*End);
@@ -103,12 +105,11 @@
 			function animGo(){
 
 				if(!((xBe>pointX-20)&&
-					 (xBe<pointX+20)&&
-					 (yBe>pointY-20)&&
-					 (yBe<pointY+20))) window.requestAnimationFrame(animGo)
+					  (xBe<pointX+20)&&
+					  (yBe>pointY-20)&&
+					  (yBe<pointY+20))) window.requestAnimationFrame(animGo)
 					else namber.innerHTML = --counter;
-          if ((!counter)&&(butCheck.innerHTML==="On")) location.reload();
-     //let  xGo, yGo;
+				if ((!counter)&&(butCheck.innerHTML==="On")) location.reload();
 
      const step=6,
      stepPoint=0.1;
@@ -122,10 +123,10 @@
      xBe=Math.round(x+xGo+xPoint);
      yBe=Math.round(y+yGo+yPoint);
      ctx.strokeRect(xBe, yBe, 1, 1);
- }
- animGo();
+  }
+  animGo();
 } 
-	anim();
+anim();
 </script>
 </body>
 </html> 
